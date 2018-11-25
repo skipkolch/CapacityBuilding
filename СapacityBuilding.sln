@@ -7,7 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "СapacityBuilding", "Сapac
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{F28BBC05-AF6A-4830-BCF0-D5DB503E0EF7}"
 	ProjectSection(SolutionItems) = preProject
-		D:\Туровский\туровский20\data.txt = D:\Туровский\туровский20\data.txt
+		D:\Туровский\kolmak11.txt = D:\Туровский\kolmak11.txt
+		D:\Туровский\kolmak8.txt = D:\Туровский\kolmak8.txt
 	EndProjectSection
 EndProject
 Global

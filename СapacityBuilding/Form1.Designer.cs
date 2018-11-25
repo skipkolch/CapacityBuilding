@@ -28,23 +28,24 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parseDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.averageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.channelToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.а1ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.zA2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.o2A2ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
-            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
+            this.label1 = new System.Windows.Forms.Label();
+            this.graphicFurieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.furieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spectrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.averageValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
@@ -53,10 +54,10 @@
             // 
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.channelToolStripMenuItem});
+            this.graphicFurieToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(555, 24);
+            this.menuStrip1.Size = new System.Drawing.Size(863, 24);
             this.menuStrip1.TabIndex = 0;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -72,7 +73,7 @@
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.importToolStripMenuItem.Text = "Import...";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
@@ -88,88 +89,102 @@
             // parseDataToolStripMenuItem
             // 
             this.parseDataToolStripMenuItem.Name = "parseDataToolStripMenuItem";
-            this.parseDataToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.parseDataToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.parseDataToolStripMenuItem.Text = "ParseData";
             this.parseDataToolStripMenuItem.Click += new System.EventHandler(this.parseDataToolStripMenuItem_Click);
             // 
             // averageToolStripMenuItem
             // 
             this.averageToolStripMenuItem.Name = "averageToolStripMenuItem";
-            this.averageToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.averageToolStripMenuItem.Size = new System.Drawing.Size(126, 22);
             this.averageToolStripMenuItem.Text = "Average";
             this.averageToolStripMenuItem.Click += new System.EventHandler(this.averageToolStripMenuItem_Click);
-            // 
-            // channelToolStripMenuItem
-            // 
-            this.channelToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.а1ToolStripMenuItem,
-            this.zA2ToolStripMenuItem,
-            this.o2A2ToolStripMenuItem});
-            this.channelToolStripMenuItem.Name = "channelToolStripMenuItem";
-            this.channelToolStripMenuItem.Size = new System.Drawing.Size(63, 20);
-            this.channelToolStripMenuItem.Text = "Channel";
-            // 
-            // а1ToolStripMenuItem
-            // 
-            this.а1ToolStripMenuItem.Name = "а1ToolStripMenuItem";
-            this.а1ToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.а1ToolStripMenuItem.Text = "O1А1";
-            this.а1ToolStripMenuItem.Click += new System.EventHandler(this.а1ToolStripMenuItem_Click);
-            // 
-            // zA2ToolStripMenuItem
-            // 
-            this.zA2ToolStripMenuItem.Name = "zA2ToolStripMenuItem";
-            this.zA2ToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.zA2ToolStripMenuItem.Text = "OzA2";
-            this.zA2ToolStripMenuItem.Click += new System.EventHandler(this.zA2ToolStripMenuItem_Click);
-            // 
-            // o2A2ToolStripMenuItem
-            // 
-            this.o2A2ToolStripMenuItem.Name = "o2A2ToolStripMenuItem";
-            this.o2A2ToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
-            this.o2A2ToolStripMenuItem.Text = "O2A2";
-            this.o2A2ToolStripMenuItem.Click += new System.EventHandler(this.o2A2ToolStripMenuItem_Click);
             // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
-            // chart1
-            // 
-            chartArea5.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea5);
-            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend5.Name = "Legend1";
-            this.chart1.Legends.Add(legend5);
-            this.chart1.Location = new System.Drawing.Point(0, 24);
-            this.chart1.Name = "chart1";
-            series5.BorderWidth = 2;
-            series5.ChartArea = "ChartArea1";
-            series5.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series5.Color = System.Drawing.Color.Red;
-            series5.Legend = "Legend1";
-            series5.Name = "Values";
-            this.chart1.Series.Add(series5);
-            this.chart1.Size = new System.Drawing.Size(555, 322);
-            this.chart1.TabIndex = 1;
-            this.chart1.Text = "chart1";
-            // 
             // progressBar1
             // 
             this.progressBar1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.progressBar1.Location = new System.Drawing.Point(0, 336);
+            this.progressBar1.Location = new System.Drawing.Point(0, 469);
             this.progressBar1.Name = "progressBar1";
-            this.progressBar1.Size = new System.Drawing.Size(555, 10);
+            this.progressBar1.Size = new System.Drawing.Size(863, 10);
             this.progressBar1.Step = 1;
             this.progressBar1.TabIndex = 2;
+            // 
+            // chart1
+            // 
+            chartArea12.AxisX.Interval = 1D;
+            chartArea12.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea12);
+            this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
+            legend12.Name = "Legend1";
+            this.chart1.Legends.Add(legend12);
+            this.chart1.Location = new System.Drawing.Point(0, 24);
+            this.chart1.Name = "chart1";
+            series12.BorderColor = System.Drawing.Color.Red;
+            series12.BorderWidth = 3;
+            series12.ChartArea = "ChartArea1";
+            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+            series12.Color = System.Drawing.Color.Red;
+            series12.Legend = "Legend1";
+            series12.Name = "spectr";
+            this.chart1.Series.Add(series12);
+            this.chart1.Size = new System.Drawing.Size(863, 445);
+            this.chart1.TabIndex = 3;
+            this.chart1.Text = "chart1";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.BackColor = System.Drawing.Color.White;
+            this.label1.Dock = System.Windows.Forms.DockStyle.Bottom;
+            this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
+            this.label1.Location = new System.Drawing.Point(0, 449);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(0, 20);
+            this.label1.TabIndex = 4;
+            // 
+            // graphicFurieToolStripMenuItem
+            // 
+            this.graphicFurieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.furieToolStripMenuItem,
+            this.spectrToolStripMenuItem,
+            this.averageValuesToolStripMenuItem});
+            this.graphicFurieToolStripMenuItem.Name = "graphicFurieToolStripMenuItem";
+            this.graphicFurieToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.graphicFurieToolStripMenuItem.Text = "Graphics";
+            // 
+            // furieToolStripMenuItem
+            // 
+            this.furieToolStripMenuItem.Name = "furieToolStripMenuItem";
+            this.furieToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.furieToolStripMenuItem.Text = "Furie";
+            this.furieToolStripMenuItem.Click += new System.EventHandler(this.furieToolStripMenuItem_Click);
+            // 
+            // spectrToolStripMenuItem
+            // 
+            this.spectrToolStripMenuItem.Name = "spectrToolStripMenuItem";
+            this.spectrToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.spectrToolStripMenuItem.Text = "Spectr";
+            this.spectrToolStripMenuItem.Click += new System.EventHandler(this.spectrToolStripMenuItem_Click);
+            // 
+            // averageValuesToolStripMenuItem
+            // 
+            this.averageValuesToolStripMenuItem.Name = "averageValuesToolStripMenuItem";
+            this.averageValuesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.averageValuesToolStripMenuItem.Text = "Average Values";
+            this.averageValuesToolStripMenuItem.Click += new System.EventHandler(this.averageValuesToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(555, 346);
-            this.Controls.Add(this.progressBar1);
+            this.ClientSize = new System.Drawing.Size(863, 479);
+            this.Controls.Add(this.label1);
             this.Controls.Add(this.chart1);
+            this.Controls.Add(this.progressBar1);
             this.Controls.Add(this.menuStrip1);
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
@@ -190,13 +205,14 @@
         private System.Windows.Forms.ToolStripMenuItem parseDataToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem averageToolStripMenuItem;
         private System.Windows.Forms.OpenFileDialog openFileDialog1;
-        private System.Windows.Forms.ToolStripMenuItem channelToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem а1ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem zA2ToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem o2A2ToolStripMenuItem;
-        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
         private System.Windows.Forms.ProgressBar progressBar1;
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chart1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.ToolStripMenuItem graphicFurieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem furieToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem spectrToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem averageValuesToolStripMenuItem;
     }
 }
 

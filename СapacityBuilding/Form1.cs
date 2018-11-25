@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace СapacityBuilding
 {
@@ -23,15 +24,25 @@ namespace СapacityBuilding
 
         private StreamWriter streamWriter;
 
+        private int N;
+
+        private double[] ReFm;
+        private double[] ImFm;
+        private double[] spectr;
+
         public Form1()
         {
             InitializeComponent();
 
-            NumberChannel = 0;
+            NumberChannel = 1;
+            N = 10000;
 
             CanStartWrite = false;
 
             openFileDialog1.Filter = saveFileDialog1.Filter = "Text files(*.txt)|*.txt";
+
+            chart1.Series[0].ToolTip = "X = #VALX, Y = #VALY";
+            chart1.GetToolTipText += chart_GetToolTipText;
         }
            
 
@@ -44,15 +55,20 @@ namespace СapacityBuilding
                 if (openFileDialog1.ShowDialog() == DialogResult.OK)
                 {
                     if ((mystr = openFileDialog1.OpenFile()) != null)
-                    {
-                        StreamReader myread = new StreamReader(mystr);                       
+                    {                   
                         try
                         {
-                            data = ReadingFromFile(myread);
+                            data = ReadingFromFile(mystr);
 
                             averageValues = CalculateAverageValues(data);
 
-                            plotGraphic(averageValues);
+                            ReFm = InitReFm(averageValues);
+                            ImFm = InitImFm(averageValues);
+
+                            spectr = CalculateSpectr(ReFm, ImFm);
+
+                            label1.Text = "Done!";
+                            label1.Refresh();
                         }
                         catch (Exception ex)
                         {
@@ -61,7 +77,6 @@ namespace СapacityBuilding
                         finally
                         {
                             mystr.Close();
-                            myread.Close();
                         }
                     }
                 }                
@@ -69,15 +84,24 @@ namespace СapacityBuilding
             else MessageBox.Show("Input Number Channel");
         }
 
-        private void plotGraphic(double[] arr)
-        {
-            chart1.Series["Values"].Points.Clear();
 
-            for (int i = 0; i < arr.Length; i++)
+        private void DrawFunc(double[] array, string str)
+        {
+            if (array != null)
             {
-                chart1.Series["Values"].Points.AddXY(i, arr[i]);
+                chart1.Series[0].Name = str;
+                chart1.Series[0].Points.Clear();
+                int size = 50;
+                //int size = spectr.Lenght;
+                for (int i = 0; i < size; i++)
+                {
+                    chart1.Series[0].Points.AddXY(i, array[i]);
+                }
             }
+            else
+                MessageBox.Show("Нет данных для чтения", "Сообщение", MessageBoxButtons.OK, MessageBoxIcon.Warning);
         }
+
 
         private double[] CalculateAverageValues(List<List<double>> array)
         {
@@ -87,7 +111,9 @@ namespace СapacityBuilding
 
             progressBar1.Value = 0;
             progressBar1.Maximum = local.Length;
-            
+            label1.Text = "Calculate Average Values";
+            label1.Refresh();
+
             for (int i = 0; i < local.Length; i++ , progressBar1.Value++)
             {
                 try
@@ -112,50 +138,117 @@ namespace СapacityBuilding
             return local;
         }
 
-        private List<List<double>> ReadingFromFile(StreamReader reader)
+        private double[] CalculateSpectr(double[] RM, double[] IM)
+        {
+            int N = RM.Length;
+            double[] spectr = new double[N];
+
+
+            for (int i = 0; i < N; i++)
+                spectr[i] = Math.Sqrt(Math.Pow(ReFm[i], 2) + Math.Pow(ImFm[i], 2));
+
+            return spectr;
+        }
+
+        private List<List<double>> ReadingFromFile(Stream filename)
         {
             List<List<double>> local = new List<List<double>>();
+            StreamReader reader = new StreamReader(filename);
             string[] lineData;
 
-            int i = -1;
+            int oldNumber = 0;
+            int j = -1;
             CanStartWrite = false;
 
             while (!reader.EndOfStream)
             {
                 lineData = reader.ReadLine().Split(' ');
-              
+                oldNumber++;
+
                 if (lineData[0] == "0")
                 {
-                    if (CanStartWrite)
-                        local[i].Add(double.Parse(lineData[NumberChannel]));
-                    else continue;
+                    continue;
                 }
                 else
                 {
                     local.Add(new List<double>());
-                    CanStartWrite = true;
-                    i++;
+                    j++;
+
+                    for(int i = 0; (i < N) && (!reader.EndOfStream); i++)
+                    {
+                        lineData = reader.ReadLine().Split(' ');
+                        local[j].Add(double.Parse(lineData[NumberChannel]));
+                    }
+
+                    reader = new StreamReader(filename);
+                    for (int i = 1; i < oldNumber; i++)
+                        reader.ReadLine();           
                 }
                             
             }
+
             local.Remove(local[local.Count - 1]);
+
+            reader.Close();
 
             return local;
         }
 
-        private void а1ToolStripMenuItem_Click(object sender, EventArgs e)
+        private double[] InitReFm(double[] Fk)
         {
-            NumberChannel = 1;
+            double sum;
+            int size = Fk.Length;
+            double[] localReF = new double[size];
+
+            double h = 2 * Math.PI / Fk.Length;
+
+            progressBar1.Maximum = size;
+            progressBar1.Value = 0;
+            label1.Text = "Calculate Re in Furie Transform";
+            label1.Refresh();
+
+            for (int i = 0; i < size; i++)
+            {
+                sum = 0;
+
+                for (int j = 0; j < size; j++)
+                    sum += Fk[j] * Math.Cos(h * i * j);
+
+                localReF[i] = sum / Math.Sqrt(size);
+
+                progressBar1.Value++;
+            }
+
+            return localReF;
         }
 
-        private void zA2ToolStripMenuItem_Click(object sender, EventArgs e)
+        private double[] InitImFm(double[] Fk)
         {
-            NumberChannel = 2;
-        }
+            double sum;
+            int size = Fk.Length;
+            double[] localImF = new double[size];
 
-        private void o2A2ToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            NumberChannel = 3;
+            double h = 2 * Math.PI / Fk.Length;
+
+            progressBar1.Maximum = size;
+            progressBar1.Value = 0;
+            label1.Text = "Calculate Im in Furie Transform";
+            label1.Refresh();
+
+            for (int i = 0; i < size; i++)
+            {
+                sum = 0;
+
+                for (int j = 0; j < size; j++)
+                    sum += Fk[j] * Math.Sin(h * i * j);
+
+                localImF[i] = -sum / Math.Sqrt(size);
+
+
+                progressBar1.Value++;
+            }
+
+            return localImF;
         }
 
         private void parseDataToolStripMenuItem_Click(object sender, EventArgs e)
@@ -245,6 +338,63 @@ namespace СapacityBuilding
         private void averageToolStripMenuItem_Click(object sender, EventArgs e)
         {
             saveFiles(averageValues);
+        }
+
+        private void chart_GetToolTipText(object sender, ToolTipEventArgs e)
+        {
+            // Если текст в подсказке уже есть, то ничего не меняем.
+            if (!String.IsNullOrWhiteSpace(e.Text))
+                return;
+
+            Console.WriteLine(e.HitTestResult.ChartElementType);
+
+            switch (e.HitTestResult.ChartElementType)
+            {
+                case ChartElementType.DataPoint:
+                case ChartElementType.DataPointLabel:
+                case ChartElementType.Gridlines:
+                case ChartElementType.Axis:
+                case ChartElementType.TickMarks:
+                case ChartElementType.PlottingArea:
+                    // Первый ChartArea
+                    var area = chart1.ChartAreas[0];
+
+                    // Его относительные координаты (в процентах от размеров Chart)
+                    var areaPosition = area.Position;
+
+                    // Переводим в абсолютные
+                    var areaRect = new RectangleF(areaPosition.X * chart1.Width / 100, areaPosition.Y * chart1.Height / 100,
+                        areaPosition.Width * chart1.Width / 100, areaPosition.Height * chart1.Height / 100);
+
+                    // Область построения (в процентах от размеров area)
+                    var innerPlot = area.InnerPlotPosition;
+
+                    double x = area.AxisX.Minimum +
+                                (area.AxisX.Maximum - area.AxisX.Minimum) * (e.X - areaRect.Left - innerPlot.X * areaRect.Width / 100) /
+                                (innerPlot.Width * areaRect.Width / 100);
+                    double y = area.AxisY.Maximum -
+                                (area.AxisY.Maximum - area.AxisY.Minimum) * (e.Y - areaRect.Top - innerPlot.Y * areaRect.Height / 100) /
+                                (innerPlot.Height * areaRect.Height / 100);
+
+                    Console.WriteLine("{0:F2} {1:F2}", x, y);
+                    e.Text = String.Format("{0:F2} {1:F2}", x, y);
+                    break;
+            }
+        }
+
+        private void furieToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawFunc(ReFm, "ReFm");
+        }
+
+        private void spectrToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawFunc(spectr, "Spectr");
+        }
+
+        private void averageValuesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            DrawFunc(averageValues, "Average Values");
         }
     }
 }
