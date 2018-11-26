@@ -40,8 +40,7 @@ namespace СapacityBuilding
             CanStartWrite = false;
 
             openFileDialog1.Filter = saveFileDialog1.Filter = "Text files(*.txt)|*.txt";
-
-            chart1.Series[0].ToolTip = "X = #VALX, Y = #VALY";
+         
             chart1.GetToolTipText += chart_GetToolTipText;
         }
            
@@ -89,10 +88,13 @@ namespace СapacityBuilding
         {
             if (array != null)
             {
-                chart1.Series[0].Name = str;
-                chart1.Series[0].Points.Clear();
-                int size = 50;
-                //int size = spectr.Lenght;
+                chart1.Series.Clear();
+                chart1.Series.Add(str).ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
+                chart1.Series[0].Color = Color.Red;
+                chart1.Series[0].BorderWidth = 2;
+                chart1.Series[0].ToolTip = "X = #VALX, Y = #VALY";
+
+                int size = 100;
                 for (int i = 0; i < size; i++)
                 {
                     chart1.Series[0].Points.AddXY(i, array[i]);
@@ -133,18 +135,38 @@ namespace СapacityBuilding
                     break;
                 }
 
-            }        
-            
+            }
+
+            double a_1 = 0;
+            double a_12 = 0;
+            double b_1 = 0;
+            double a = 0;
+            double ab = 0;
+            double b = 0;
+
+            for (int i = 0; i < N; i++)
+            {
+                a_1 += i;
+                b_1 += local[i];
+                a_12 += i * i;
+                ab += local[i] * i;
+            }
+            a = (b_1 * a_12 - a_1 * ab) / (N * a_12 - a_1 * a_1);
+            b = (N * ab - a_1 * b_1) / (N * a_12 - a_1 * a_1);
+
+            for (int i = 0; i < N; i++)
+                local[i] -= i * b + a;
+
             return local;
         }
 
         private double[] CalculateSpectr(double[] RM, double[] IM)
         {
-            int N = RM.Length;
-            double[] spectr = new double[N];
+            int Size = RM.Length;
+            double[] spectr = new double[Size];
 
 
-            for (int i = 0; i < N; i++)
+            for (int i = 0; i < Size; i++)
                 spectr[i] = Math.Sqrt(Math.Pow(ReFm[i], 2) + Math.Pow(ImFm[i], 2));
 
             return spectr;
@@ -154,17 +176,19 @@ namespace СapacityBuilding
         {
             List<List<double>> local = new List<List<double>>();
             StreamReader reader = new StreamReader(filename);
-            string[] lineData;
 
-            int oldNumber = 0;
-            int j = -1;
+            string[] AllFile = reader.ReadToEnd().Split('\n');
+
+            reader.Close();
+
+            string[] lineData;
+            int j = -1; // Количество строк в списке
             CanStartWrite = false;
 
-            while (!reader.EndOfStream)
+            for(int i = 0, size = AllFile.Length - N; i < size; i++)
             {
-                lineData = reader.ReadLine().Split(' ');
-                oldNumber++;
-
+                lineData = AllFile[i].Split(' ');
+               
                 if (lineData[0] == "0")
                 {
                     continue;
@@ -172,24 +196,18 @@ namespace СapacityBuilding
                 else
                 {
                     local.Add(new List<double>());
-                    j++;
+                    i++; j++;
 
-                    for(int i = 0; (i < N) && (!reader.EndOfStream); i++)
+                    for(int g = i; g < i + N; g++)
                     {
-                        lineData = reader.ReadLine().Split(' ');
+                        lineData = AllFile[g].Split(' ');
                         local[j].Add(double.Parse(lineData[NumberChannel]));
-                    }
-
-                    reader = new StreamReader(filename);
-                    for (int i = 1; i < oldNumber; i++)
-                        reader.ReadLine();           
+                    }       
                 }
                             
             }
 
             local.Remove(local[local.Count - 1]);
-
-            reader.Close();
 
             return local;
         }
@@ -197,10 +215,10 @@ namespace СapacityBuilding
         private double[] InitReFm(double[] Fk)
         {
             double sum;
-            int size = Fk.Length;
+            int size = Fk.Length / 4;
             double[] localReF = new double[size];
 
-            double h = 2 * Math.PI / Fk.Length;
+            double h = 2 * Math.PI / size;
 
             progressBar1.Maximum = size;
             progressBar1.Value = 0;
@@ -225,10 +243,10 @@ namespace СapacityBuilding
         private double[] InitImFm(double[] Fk)
         {
             double sum;
-            int size = Fk.Length;
+            int size = Fk.Length / 4;
             double[] localImF = new double[size];
 
-            double h = 2 * Math.PI / Fk.Length;
+            double h = 2 * Math.PI / size;
 
             progressBar1.Maximum = size;
             progressBar1.Value = 0;

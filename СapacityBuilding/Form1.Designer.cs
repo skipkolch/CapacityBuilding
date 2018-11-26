@@ -28,24 +28,23 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea12 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend12 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.importToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.parseDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.averageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.graphicFurieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.furieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.spectrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.averageValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.progressBar1 = new System.Windows.Forms.ProgressBar();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.chart1 = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.label1 = new System.Windows.Forms.Label();
-            this.graphicFurieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.furieToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.spectrToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.averageValuesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chart1)).BeginInit();
             this.SuspendLayout();
@@ -73,7 +72,7 @@
             // importToolStripMenuItem
             // 
             this.importToolStripMenuItem.Name = "importToolStripMenuItem";
-            this.importToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.importToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.importToolStripMenuItem.Text = "Import...";
             this.importToolStripMenuItem.Click += new System.EventHandler(this.importToolStripMenuItem_Click);
             // 
@@ -83,7 +82,7 @@
             this.parseDataToolStripMenuItem,
             this.averageToolStripMenuItem});
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
-            this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
             this.exportToolStripMenuItem.Text = "Export...";
             // 
             // parseDataToolStripMenuItem
@@ -100,6 +99,37 @@
             this.averageToolStripMenuItem.Text = "Average";
             this.averageToolStripMenuItem.Click += new System.EventHandler(this.averageToolStripMenuItem_Click);
             // 
+            // graphicFurieToolStripMenuItem
+            // 
+            this.graphicFurieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.furieToolStripMenuItem,
+            this.spectrToolStripMenuItem,
+            this.averageValuesToolStripMenuItem});
+            this.graphicFurieToolStripMenuItem.Name = "graphicFurieToolStripMenuItem";
+            this.graphicFurieToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.graphicFurieToolStripMenuItem.Text = "Graphics";
+            // 
+            // furieToolStripMenuItem
+            // 
+            this.furieToolStripMenuItem.Name = "furieToolStripMenuItem";
+            this.furieToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.furieToolStripMenuItem.Text = "Furie";
+            this.furieToolStripMenuItem.Click += new System.EventHandler(this.furieToolStripMenuItem_Click);
+            // 
+            // spectrToolStripMenuItem
+            // 
+            this.spectrToolStripMenuItem.Name = "spectrToolStripMenuItem";
+            this.spectrToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.spectrToolStripMenuItem.Text = "Spectr";
+            this.spectrToolStripMenuItem.Click += new System.EventHandler(this.spectrToolStripMenuItem_Click);
+            // 
+            // averageValuesToolStripMenuItem
+            // 
+            this.averageValuesToolStripMenuItem.Name = "averageValuesToolStripMenuItem";
+            this.averageValuesToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
+            this.averageValuesToolStripMenuItem.Text = "Average Values";
+            this.averageValuesToolStripMenuItem.Click += new System.EventHandler(this.averageValuesToolStripMenuItem_Click);
+            // 
             // openFileDialog1
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
@@ -115,22 +145,14 @@
             // 
             // chart1
             // 
-            chartArea12.AxisX.Interval = 1D;
-            chartArea12.Name = "ChartArea1";
-            this.chart1.ChartAreas.Add(chartArea12);
+            chartArea1.AxisX.Interval = 1D;
+            chartArea1.Name = "ChartArea1";
+            this.chart1.ChartAreas.Add(chartArea1);
             this.chart1.Dock = System.Windows.Forms.DockStyle.Fill;
-            legend12.Name = "Legend1";
-            this.chart1.Legends.Add(legend12);
+            legend1.Name = "Legend1";
+            this.chart1.Legends.Add(legend1);
             this.chart1.Location = new System.Drawing.Point(0, 24);
             this.chart1.Name = "chart1";
-            series12.BorderColor = System.Drawing.Color.Red;
-            series12.BorderWidth = 3;
-            series12.ChartArea = "ChartArea1";
-            series12.ChartType = System.Windows.Forms.DataVisualization.Charting.SeriesChartType.Line;
-            series12.Color = System.Drawing.Color.Red;
-            series12.Legend = "Legend1";
-            series12.Name = "spectr";
-            this.chart1.Series.Add(series12);
             this.chart1.Size = new System.Drawing.Size(863, 445);
             this.chart1.TabIndex = 3;
             this.chart1.Text = "chart1";
@@ -145,37 +167,6 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(0, 20);
             this.label1.TabIndex = 4;
-            // 
-            // graphicFurieToolStripMenuItem
-            // 
-            this.graphicFurieToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.furieToolStripMenuItem,
-            this.spectrToolStripMenuItem,
-            this.averageValuesToolStripMenuItem});
-            this.graphicFurieToolStripMenuItem.Name = "graphicFurieToolStripMenuItem";
-            this.graphicFurieToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
-            this.graphicFurieToolStripMenuItem.Text = "Graphics";
-            // 
-            // furieToolStripMenuItem
-            // 
-            this.furieToolStripMenuItem.Name = "furieToolStripMenuItem";
-            this.furieToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.furieToolStripMenuItem.Text = "Furie";
-            this.furieToolStripMenuItem.Click += new System.EventHandler(this.furieToolStripMenuItem_Click);
-            // 
-            // spectrToolStripMenuItem
-            // 
-            this.spectrToolStripMenuItem.Name = "spectrToolStripMenuItem";
-            this.spectrToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.spectrToolStripMenuItem.Text = "Spectr";
-            this.spectrToolStripMenuItem.Click += new System.EventHandler(this.spectrToolStripMenuItem_Click);
-            // 
-            // averageValuesToolStripMenuItem
-            // 
-            this.averageValuesToolStripMenuItem.Name = "averageValuesToolStripMenuItem";
-            this.averageValuesToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.averageValuesToolStripMenuItem.Text = "Average Values";
-            this.averageValuesToolStripMenuItem.Click += new System.EventHandler(this.averageValuesToolStripMenuItem_Click);
             // 
             // Form1
             // 
