@@ -18,8 +18,6 @@ namespace СapacityBuilding
 
         List<List<double>> data;
 
-        private bool CanStartWrite;
-
         private double[] averageValues;
 
         private StreamWriter streamWriter;
@@ -36,8 +34,6 @@ namespace СapacityBuilding
 
             NumberChannel = 1;
             N = 10000;
-
-            CanStartWrite = false;
 
             openFileDialog1.Filter = saveFileDialog1.Filter = "Text files(*.txt)|*.txt";
          
@@ -182,8 +178,7 @@ namespace СapacityBuilding
             reader.Close();
 
             string[] lineData;
-            int j = -1; // Количество строк в списке
-            CanStartWrite = false;
+            int j = -1; // Количество строк в списке 
 
             for(int i = 0, size = AllFile.Length - N; i < size; i++)
             {
